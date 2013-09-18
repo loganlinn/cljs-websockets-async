@@ -8,8 +8,15 @@ channel out  === pr-str ======> WebSocket send
 channel in   <== read-string == WebSocket onmessage
 ```
 
-## Usage
+## Install
 
+Add to your `project.clj`:
+
+```clojure
+[cljs-websockets-async "0.1.0-SNAPSHOT"]
+```
+
+## Usage
 
 `cljs-websockets-async.core/connect!` ([source](src/cljs_websockets_async/core.cljs))
 returns a channel that passes a value once
