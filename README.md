@@ -4,8 +4,8 @@ A simple [clojure/core.async](https://github.com/clojure/core.async) wrapper
 around browser WebSocket that communicates via [EDN](https://github.com/edn-format/edn).
 
 ```
-channel out  === pr-str ======> WebSocket send
-channel in   <== read-string == WebSocket onmessage
+channel out  --- pr-str ------> WebSocket send
+channel in   <-- read-string -- WebSocket onmessage
 ```
 
 ## Install
