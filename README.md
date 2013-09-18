@@ -25,7 +25,7 @@ the WebSocket connection has been established.
 Example:
 
 ```clojure
-(ns cljs-websockets-async
+(ns cljs-websockets-async.example
   (:require [cljs-websockets-async.core :as websocket]
             [cljs.core.async :as async :refer [<! >!]])
   (:require-macros [cljs.core.async.macros :refer [go]]))
