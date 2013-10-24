@@ -4,8 +4,8 @@ A simple [clojure/core.async](https://github.com/clojure/core.async) wrapper
 around browser WebSocket that communicates via [EDN](https://github.com/edn-format/edn).
 
 ```
-channel out  --- pr-str ------> WebSocket send
-channel in   <-- read-string -- WebSocket onmessage
+channel out  >>(   pr-str    )>> WebSocket send
+channel in   <<( read-string )<< WebSocket onmessage
 ```
 
 ## Install
@@ -30,16 +30,13 @@ Example:
             [cljs.core.async :as async :refer [<! >!]])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
-;; Connect to websocket
-;; Continuously recieve a sequence of values from WebSocket
-;; Increment values and send back over WebSocket
 
-(go
-  (let [{:keys [in out]} (<! (websocket/connect! "ws://localhost:8080"))]
-    (loop []
-      (when-let [data (<! in)]
-        (>! out (map inc data))
-        (recur)))))
+;; Open Websocket to server; receive map of chans once connected.
+(let [websock (<! (websocket/connect! "ws://localhost:8080"))]
+  (go-loop []
+    (when-let [vs (<! (:in websock))]   ;; Read values
+      (>! (:out websock) (map inc vs))  ;; Increment & send back
+      (recur))))
 ```
 
 ## See Also
