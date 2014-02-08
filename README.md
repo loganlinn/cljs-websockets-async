@@ -32,11 +32,13 @@ Example:
 
 
 ;; Open Websocket to server; receive map of chans once connected.
-(let [websock (<! (websocket/connect! "ws://localhost:8080"))]
-  (go-loop []
-    (when-let [vs (<! (:in websock))]   ;; Read values
-      (>! (:out websock) (map inc vs))  ;; Increment & send back
-      (recur))))
+
+(go
+  (let [websock (<! (websocket/connect! "ws://localhost:8080"))]
+    (loop []
+      (when-let [vs (<! (:in websock))]   ;; Read values
+        (>! (:out websock) (map inc vs))  ;; Increment & send back
+        (recur)))))
 ```
 
 ## See Also
